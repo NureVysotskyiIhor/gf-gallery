@@ -9,18 +9,22 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_ANON_KEY!
 );
 
-export function GoogleAuthButton() {
+export function CompGoogleAuthButton() {
   const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {
     setLoading(true);
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: window.location.origin + '/route-complete-profile' },
-    });
-    setLoading(false);
-    if (error) toast('Ошибка', { description: error.message });
-    // дальше всё «автоматом»: Google → ваш redirectTo → авто‑сессия → fetchUser()
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.origin + '/route-complete-profile' },
+      });
+      if (error) throw error;
+    } catch (error: any) {
+      toast.error(error.message || 'Ошибка аутентификации');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -32,3 +36,4 @@ export function GoogleAuthButton() {
     </Button>
   );
 }
+

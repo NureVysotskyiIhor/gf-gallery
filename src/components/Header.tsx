@@ -1,34 +1,34 @@
-import { useState } from "react";
-import { Link, useNavigate, useLocation } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
-import { User, LogOut } from "lucide-react";
-import { useUserStore } from "@/store/userStore";
-import { toast } from "sonner";
-import logo from "@/assets/images/estateflow_logo.jpg";
+//import { useState } from 'react';
+import { Link, useNavigate } from '@tanstack/react-router';
+import { Button } from '@/components/ui/button';
+import { User, LogOut } from 'lucide-react';
+import { useUserStore } from '@/store/userStore';
+import { toast } from 'sonner';
+import logo from '@/assets/images/estateflow_logo.jpg';
 
 export function Header() {
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, setUser } = useUserStore();
   const navigate = useNavigate();
-  const location = useLocation();
+  //const location = useLocation();
 
-  const handleLogout = async () => {
-    const { error } = await import("@/lib/supabaseClient").then(({ supabase }) =>
-      supabase.auth.signOut()
-    );
-
-    if (error) {
-      toast.error("Ошибка при выходе");
-      return;
+  async function handleLogout() {
+    try {
+      const { supabase } = await import('@/lib/supabaseClient');
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        toast.error('Ошибка при выходе');
+        return;
+      }
+      setUser(null);
+      toast.success('Вы вышли из аккаунта');
+      navigate({ to: '/' });
+    } catch {
+      toast.error('Ошибка при выходе');
     }
+  }
 
-    setUser(null);
-    toast.success("Вы вышли из аккаунта");
-    navigate({ to: "/" });
-  };
-
-  const isActiveLink = (path: string) =>
-    path === "/" ? location.pathname === "/" : location.pathname.startsWith(path);
+  // const isActiveLink = (path: string) =>
+  //   path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white shadow-sm border-b">
@@ -46,7 +46,7 @@ export function Header() {
           <div className="flex items-center gap-2">
             {user ? (
               <>
-                <Link to="/">
+                <Link to="/user-page">
                   <Button variant="ghost" size="icon">
                     <User className="w-5 h-5" />
                   </Button>

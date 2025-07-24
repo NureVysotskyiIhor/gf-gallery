@@ -11,14 +11,23 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as UserPageImport } from './routes/user-page'
 import { Route as RouteRestorePasswordStep2Import } from './routes/route-restore-password-step2'
 import { Route as RouteRestorePasswordStep1Import } from './routes/route-restore-password-step1'
 import { Route as RouteRegisterImport } from './routes/route-register'
+import { Route as RoutePaintingCreateImport } from './routes/route-painting-create'
+import { Route as RoutePaintingImport } from './routes/route-painting'
 import { Route as RouteLoginImport } from './routes/route-login'
 import { Route as RouteCompleteProfileImport } from './routes/route-complete-profile'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const UserPageRoute = UserPageImport.update({
+  id: '/user-page',
+  path: '/user-page',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const RouteRestorePasswordStep2Route = RouteRestorePasswordStep2Import.update({
   id: '/route-restore-password-step2',
@@ -35,6 +44,18 @@ const RouteRestorePasswordStep1Route = RouteRestorePasswordStep1Import.update({
 const RouteRegisterRoute = RouteRegisterImport.update({
   id: '/route-register',
   path: '/route-register',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const RoutePaintingCreateRoute = RoutePaintingCreateImport.update({
+  id: '/route-painting-create',
+  path: '/route-painting-create',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const RoutePaintingRoute = RoutePaintingImport.update({
+  id: '/route-painting',
+  path: '/route-painting',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -81,6 +102,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RouteLoginImport
       parentRoute: typeof rootRoute
     }
+    '/route-painting': {
+      id: '/route-painting'
+      path: '/route-painting'
+      fullPath: '/route-painting'
+      preLoaderRoute: typeof RoutePaintingImport
+      parentRoute: typeof rootRoute
+    }
+    '/route-painting-create': {
+      id: '/route-painting-create'
+      path: '/route-painting-create'
+      fullPath: '/route-painting-create'
+      preLoaderRoute: typeof RoutePaintingCreateImport
+      parentRoute: typeof rootRoute
+    }
     '/route-register': {
       id: '/route-register'
       path: '/route-register'
@@ -102,6 +137,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RouteRestorePasswordStep2Import
       parentRoute: typeof rootRoute
     }
+    '/user-page': {
+      id: '/user-page'
+      path: '/user-page'
+      fullPath: '/user-page'
+      preLoaderRoute: typeof UserPageImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -111,18 +153,24 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/route-complete-profile': typeof RouteCompleteProfileRoute
   '/route-login': typeof RouteLoginRoute
+  '/route-painting': typeof RoutePaintingRoute
+  '/route-painting-create': typeof RoutePaintingCreateRoute
   '/route-register': typeof RouteRegisterRoute
   '/route-restore-password-step1': typeof RouteRestorePasswordStep1Route
   '/route-restore-password-step2': typeof RouteRestorePasswordStep2Route
+  '/user-page': typeof UserPageRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/route-complete-profile': typeof RouteCompleteProfileRoute
   '/route-login': typeof RouteLoginRoute
+  '/route-painting': typeof RoutePaintingRoute
+  '/route-painting-create': typeof RoutePaintingCreateRoute
   '/route-register': typeof RouteRegisterRoute
   '/route-restore-password-step1': typeof RouteRestorePasswordStep1Route
   '/route-restore-password-step2': typeof RouteRestorePasswordStep2Route
+  '/user-page': typeof UserPageRoute
 }
 
 export interface FileRoutesById {
@@ -130,9 +178,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/route-complete-profile': typeof RouteCompleteProfileRoute
   '/route-login': typeof RouteLoginRoute
+  '/route-painting': typeof RoutePaintingRoute
+  '/route-painting-create': typeof RoutePaintingCreateRoute
   '/route-register': typeof RouteRegisterRoute
   '/route-restore-password-step1': typeof RouteRestorePasswordStep1Route
   '/route-restore-password-step2': typeof RouteRestorePasswordStep2Route
+  '/user-page': typeof UserPageRoute
 }
 
 export interface FileRouteTypes {
@@ -141,25 +192,34 @@ export interface FileRouteTypes {
     | '/'
     | '/route-complete-profile'
     | '/route-login'
+    | '/route-painting'
+    | '/route-painting-create'
     | '/route-register'
     | '/route-restore-password-step1'
     | '/route-restore-password-step2'
+    | '/user-page'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/route-complete-profile'
     | '/route-login'
+    | '/route-painting'
+    | '/route-painting-create'
     | '/route-register'
     | '/route-restore-password-step1'
     | '/route-restore-password-step2'
+    | '/user-page'
   id:
     | '__root__'
     | '/'
     | '/route-complete-profile'
     | '/route-login'
+    | '/route-painting'
+    | '/route-painting-create'
     | '/route-register'
     | '/route-restore-password-step1'
     | '/route-restore-password-step2'
+    | '/user-page'
   fileRoutesById: FileRoutesById
 }
 
@@ -167,18 +227,24 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   RouteCompleteProfileRoute: typeof RouteCompleteProfileRoute
   RouteLoginRoute: typeof RouteLoginRoute
+  RoutePaintingRoute: typeof RoutePaintingRoute
+  RoutePaintingCreateRoute: typeof RoutePaintingCreateRoute
   RouteRegisterRoute: typeof RouteRegisterRoute
   RouteRestorePasswordStep1Route: typeof RouteRestorePasswordStep1Route
   RouteRestorePasswordStep2Route: typeof RouteRestorePasswordStep2Route
+  UserPageRoute: typeof UserPageRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   RouteCompleteProfileRoute: RouteCompleteProfileRoute,
   RouteLoginRoute: RouteLoginRoute,
+  RoutePaintingRoute: RoutePaintingRoute,
+  RoutePaintingCreateRoute: RoutePaintingCreateRoute,
   RouteRegisterRoute: RouteRegisterRoute,
   RouteRestorePasswordStep1Route: RouteRestorePasswordStep1Route,
   RouteRestorePasswordStep2Route: RouteRestorePasswordStep2Route,
+  UserPageRoute: UserPageRoute,
 }
 
 export const routeTree = rootRoute
@@ -194,9 +260,12 @@ export const routeTree = rootRoute
         "/",
         "/route-complete-profile",
         "/route-login",
+        "/route-painting",
+        "/route-painting-create",
         "/route-register",
         "/route-restore-password-step1",
-        "/route-restore-password-step2"
+        "/route-restore-password-step2",
+        "/user-page"
       ]
     },
     "/": {
@@ -208,6 +277,12 @@ export const routeTree = rootRoute
     "/route-login": {
       "filePath": "route-login.tsx"
     },
+    "/route-painting": {
+      "filePath": "route-painting.tsx"
+    },
+    "/route-painting-create": {
+      "filePath": "route-painting-create.tsx"
+    },
     "/route-register": {
       "filePath": "route-register.tsx"
     },
@@ -216,6 +291,9 @@ export const routeTree = rootRoute
     },
     "/route-restore-password-step2": {
       "filePath": "route-restore-password-step2.tsx"
+    },
+    "/user-page": {
+      "filePath": "user-page.tsx"
     }
   }
 }

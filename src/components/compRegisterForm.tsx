@@ -9,21 +9,20 @@ import {
 import { X, Eye, EyeOff } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { useUserStore } from '@/store/userStore';
-import { GoogleAuthButton } from '@/components/compGoogleAuthButton';
+import { CompGoogleAuthButton } from '@/components/compGoogleAuthButton';
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL!,
   import.meta.env.VITE_SUPABASE_ANON_KEY!
 );
 
-// Роли
 const roles = [
   { id: 1, name: 'visitor' },
   { id: 2, name: 'admin' },
   { id: 3, name: 'artist' },
 ];
 
-export function RegisterForm() {
+export function CompRegisterForm() {
   const navigate = useNavigate();
   const setUser = useUserStore(s => s.setUser);
 
@@ -38,6 +37,11 @@ export function RegisterForm() {
   const [errors, setErrors] = useState<Record<string,string>>({});
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const onChange = (key: string, v: string) => {
+    setForm(f => ({ ...f, [key]: v }));
+    setErrors(e => ({ ...e, [key]: '' }));
+  };
 
   const validate = () => {
     const e: Record<string,string> = {};
@@ -55,45 +59,44 @@ export function RegisterForm() {
     if (!validate()) return;
 
     setLoading(true);
-    const { data, error } = await supabase.auth.signUp({
-      email: form.email, password: form.password
-    });
-    if (error || !data.user) {
-      setError(error?.message ?? 'Ошибка регистрации');
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: form.email,
+        password: form.password
+      });
+      if (error || !data.user) {
+        setError(error?.message ?? 'Ошибка регистрации');
+        setLoading(false);
+        return;
+      }
+
+      const updates = {
+        id: data.user.id,
+        email: data.user.email,
+        username: form.username,
+        role_id: Number(form.role),
+        updated_at: new Date().toISOString()
+      };
+      const { error: upErr } = await supabase.from('users').upsert(updates);
+      if (upErr) {
+        setError(upErr.message);
+        setLoading(false);
+        return;
+      }
+
+      const { data: profile, error: pfErr } = await supabase
+        .from('users').select('*').eq('id', data.user.id).single();
+      if (pfErr || !profile) {
+        setError(pfErr?.message ?? 'Не удалось получить профиль');
+        setLoading(false);
+        return;
+      }
+
+      setUser(profile);
+      navigate({ to: '/' });
+    } finally {
       setLoading(false);
-      return;
     }
-
-    // запись профиля
-    const updates = {
-      id: data.user.id,
-      email: data.user.email,
-      username: form.username,
-      role_id: Number(form.role),
-      updated_at: new Date().toISOString()
-    };
-    const { error: upErr } = await supabase.from('users').upsert(updates);
-    if (upErr) {
-      setError(upErr.message);
-      setLoading(false);
-      return;
-    }
-
-    const { data: profile, error: pfErr } = await supabase
-      .from('users').select('*').eq('id', data.user.id).single();
-    if (pfErr || !profile) {
-      setError(pfErr?.message ?? 'Не удалось получить профиль');
-      setLoading(false);
-      return;
-    }
-
-    setUser(profile);
-    navigate({ to: '/' });
-  };
-
-  const onChange = (key: string, v: string) => {
-    setForm(f => ({ ...f, [key]: v }));
-    setErrors(e => ({ ...e, [key]: '' }));
   };
 
   return (
@@ -163,7 +166,8 @@ export function RegisterForm() {
         <div className="flex flex-col gap-1">
           <Label>Роль</Label>
           <Select
-            value={form.role} onValueChange={v => onChange('role', v)}
+            value={form.role}
+            onValueChange={v => onChange('role', v)}
             disabled={loading}
           >
             <SelectTrigger>
@@ -193,7 +197,9 @@ export function RegisterForm() {
         <span className="px-2 text-xs text-muted-foreground">OR</span>
         <div className="flex-grow h-px bg-border" />
       </div>
-        <GoogleAuthButton/>
+
+      <CompGoogleAuthButton/>
+
       <Link to="/route-login" className="block text-center text-sm underline">
         Уже есть аккаунт? Войти
       </Link>

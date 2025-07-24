@@ -1,4 +1,3 @@
-// src/components/compCompleteProfileForm.tsx
 import { useNavigate } from '@tanstack/react-router';
 import { useUserStore } from '@/store/userStore';
 import { useState } from 'react';
@@ -19,49 +18,66 @@ const roles = [
   { id: 3, name: 'admin' },
 ];
 
-export function CompleteProfileForm() {
+export function CompCompleteProfileForm() {
   const setUser = useUserStore(s => s.setUser);
   const navigate = useNavigate();
 
-  const [role, setRole] = useState<string>('');
-  const [username, setUsername] = useState('');
+  const [form, setForm] = useState({ role: '', username: '' });
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async () => {
-    if (!role) {
-      toast('Ошибка', { description: 'Выберите роль' });
-      return;
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setForm(f => ({ ...f, [name]: value }));
+  };
+
+  const validate = () => {
+    if (!form.role) {
+      toast.error('Выберите роль');
+      return false;
     }
+    return true;
+  };
+
+  const handleSubmit = async () => {
+    if (!validate()) return;
 
     setLoading(true);
 
-    const { data: { user }, error } = await supabase.auth.getUser();
-    if (error || !user) {
-      toast('Ошибка', { description: 'Не удалось получить пользователя' });
+    try {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error || !user) {
+        toast.error('Не удалось получить пользователя');
+        setLoading(false);
+        return;
+      }
+
+      const updates = {
+        id: user.id,
+        email: user.email ?? '',
+        username: form.username || null,
+        avatar_url: user.user_metadata?.avatar_url || null,
+        role_id: Number(form.role),
+        bio: null,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+
+      const { error: upsertError } = await supabase.from('users').upsert(updates);
+      if (upsertError) {
+        toast.error(upsertError.message);
+        setLoading(false);
+        return;
+      }
+
+      setUser(updates);
+      navigate({ to: '/' });
+    } catch {
+      toast.error('Ошибка при сохранении');
+    } finally {
       setLoading(false);
-      return;
     }
-
-    const updates = {
-      id: user.id,
-      email: user.email ?? '',
-      username: username || null,
-      avatar_url: user.user_metadata?.avatar_url || null,
-      role_id: Number(role),
-      bio: null,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
-
-    const { error: upsertError } = await supabase.from('users').upsert(updates);
-    if (upsertError) {
-      toast('Ошибка', { description: upsertError.message });
-      setLoading(false);
-      return;
-    }
-
-    setUser(updates);
-    navigate({ to: '/' });
   };
 
   return (
@@ -69,10 +85,12 @@ export function CompleteProfileForm() {
       <h2 className="text-lg font-bold text-center">Завершите регистрацию</h2>
 
       <div>
-        <Label>Роль (обязательно)</Label>
+        <Label htmlFor="role">Роль (обязательно)</Label>
         <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
+          id="role"
+          name="role"
+          value={form.role}
+          onChange={handleInputChange}
           className="w-full p-2 border rounded"
         >
           <option value="">Выберите роль</option>
@@ -83,11 +101,13 @@ export function CompleteProfileForm() {
       </div>
 
       <div>
-        <Label>Имя пользователя (необязательно)</Label>
+        <Label htmlFor="username">Имя пользователя (необязательно)</Label>
         <Input
+          id="username"
+          name="username"
           placeholder="Ваш никнейм"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={form.username}
+          onChange={handleInputChange}
         />
       </div>
 

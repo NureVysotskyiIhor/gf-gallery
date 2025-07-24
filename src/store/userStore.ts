@@ -1,6 +1,7 @@
 // src/store/userStore.ts
 import { create } from 'zustand';
 import { createClient } from '@supabase/supabase-js';
+import type { ExtendedUser } from '@/lib/types/userTypes';
 import type { NavigateFn } from '@tanstack/react-router';
 
 const supabase = createClient(
@@ -8,33 +9,24 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_ANON_KEY!
 );
 
-interface ExtendedUser {
-  id: string;
-  email: string;
-  username: string | null;
-  avatar_url: string | null;
-  bio: string | null;
-  role_id: number | null;
-  created_at: string | null;
-  updated_at: string | null;
-}
-
 interface UserState {
   user: ExtendedUser | null;
   setUser: (user: ExtendedUser | null) => void;
   fetchUser: (navigate: NavigateFn) => Promise<void>;
+  updateUserProfile: (updates: {
+    username?: string;
+    avatar_url?: string;
+    bio?: string;
+  }) => Promise<void>;
 }
 
-export const useUserStore = create<UserState>((set) => ({
+export const useUserStore = create<UserState>((set, get) => ({
   user: null,
 
   setUser: (user) => set({ user }),
 
   fetchUser: async (navigate) => {
-    const {
-      data: { user: authUser },
-      error: authError,
-    } = await supabase.auth.getUser();
+    const { data: { user: authUser }, error: authError } = await supabase.auth.getUser();
 
     if (authError || !authUser) {
       set({ user: null });
@@ -47,7 +39,6 @@ export const useUserStore = create<UserState>((set) => ({
       .eq('id', authUser.id)
       .single();
 
-    // ❗️Профиля нет — значит вход через Google впервые
     if (profileError || !profile) {
       navigate({ to: '/route-complete-profile' });
       return;
@@ -65,5 +56,24 @@ export const useUserStore = create<UserState>((set) => ({
     };
 
     set({ user: fullUser });
+  },
+
+  updateUserProfile: async (updates) => {
+    const { user } = get();
+    if (!user) return;
+
+    const { error } = await supabase
+      .from('users')
+      .update({
+        ...updates,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', user.id);
+
+    if (error) throw error;
+
+    // Обновим локальный стейт
+    const updatedUser = { ...user, ...updates, updated_at: new Date().toISOString() };
+    set({ user: updatedUser });
   },
 }));
