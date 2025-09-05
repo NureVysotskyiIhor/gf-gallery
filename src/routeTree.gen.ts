@@ -8,293 +8,374 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as UserPagePaintAuthorRouteImport } from './routes/user-page-paint-author'
+import { Route as UserPageRouteImport } from './routes/user-page'
+import { Route as RouteReviewsRouteImport } from './routes/route-reviews'
+import { Route as RouteRestorePasswordStep2RouteImport } from './routes/route-restore-password-step2'
+import { Route as RouteRestorePasswordStep1RouteImport } from './routes/route-restore-password-step1'
+import { Route as RouteRegisterRouteImport } from './routes/route-register'
+import { Route as RoutePaintingCreateRouteImport } from './routes/route-painting-create'
+import { Route as RoutePaintingRouteImport } from './routes/route-painting'
+import { Route as RouteMainPaintingsRouteImport } from './routes/route-main-paintings'
+import { Route as RouteLoginRouteImport } from './routes/route-login'
+import { Route as RouteConversationsRouteImport } from './routes/route-conversations'
+import { Route as RouteConversationNewRouteImport } from './routes/route-conversation-new'
+import { Route as RouteCompleteProfileRouteImport } from './routes/route-complete-profile'
+import { Route as CallbackRouteImport } from './routes/callback'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as RouteConversationConversationIdRouteImport } from './routes/route-conversation/$conversationId'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as UserPageImport } from './routes/user-page'
-import { Route as RouteRestorePasswordStep2Import } from './routes/route-restore-password-step2'
-import { Route as RouteRestorePasswordStep1Import } from './routes/route-restore-password-step1'
-import { Route as RouteRegisterImport } from './routes/route-register'
-import { Route as RoutePaintingCreateImport } from './routes/route-painting-create'
-import { Route as RoutePaintingImport } from './routes/route-painting'
-import { Route as RouteLoginImport } from './routes/route-login'
-import { Route as RouteCompleteProfileImport } from './routes/route-complete-profile'
-import { Route as IndexImport } from './routes/index'
-
-// Create/Update Routes
-
-const UserPageRoute = UserPageImport.update({
+const UserPagePaintAuthorRoute = UserPagePaintAuthorRouteImport.update({
+  id: '/user-page-paint-author',
+  path: '/user-page-paint-author',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UserPageRoute = UserPageRouteImport.update({
   id: '/user-page',
   path: '/user-page',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const RouteRestorePasswordStep2Route = RouteRestorePasswordStep2Import.update({
-  id: '/route-restore-password-step2',
-  path: '/route-restore-password-step2',
-  getParentRoute: () => rootRoute,
+const RouteReviewsRoute = RouteReviewsRouteImport.update({
+  id: '/route-reviews',
+  path: '/route-reviews',
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const RouteRestorePasswordStep1Route = RouteRestorePasswordStep1Import.update({
-  id: '/route-restore-password-step1',
-  path: '/route-restore-password-step1',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const RouteRegisterRoute = RouteRegisterImport.update({
+const RouteRestorePasswordStep2Route =
+  RouteRestorePasswordStep2RouteImport.update({
+    id: '/route-restore-password-step2',
+    path: '/route-restore-password-step2',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const RouteRestorePasswordStep1Route =
+  RouteRestorePasswordStep1RouteImport.update({
+    id: '/route-restore-password-step1',
+    path: '/route-restore-password-step1',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const RouteRegisterRoute = RouteRegisterRouteImport.update({
   id: '/route-register',
   path: '/route-register',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const RoutePaintingCreateRoute = RoutePaintingCreateImport.update({
+const RoutePaintingCreateRoute = RoutePaintingCreateRouteImport.update({
   id: '/route-painting-create',
   path: '/route-painting-create',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const RoutePaintingRoute = RoutePaintingImport.update({
+const RoutePaintingRoute = RoutePaintingRouteImport.update({
   id: '/route-painting',
   path: '/route-painting',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const RouteLoginRoute = RouteLoginImport.update({
+const RouteMainPaintingsRoute = RouteMainPaintingsRouteImport.update({
+  id: '/route-main-paintings',
+  path: '/route-main-paintings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RouteLoginRoute = RouteLoginRouteImport.update({
   id: '/route-login',
   path: '/route-login',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const RouteCompleteProfileRoute = RouteCompleteProfileImport.update({
+const RouteConversationsRoute = RouteConversationsRouteImport.update({
+  id: '/route-conversations',
+  path: '/route-conversations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RouteConversationNewRoute = RouteConversationNewRouteImport.update({
+  id: '/route-conversation-new',
+  path: '/route-conversation-new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RouteCompleteProfileRoute = RouteCompleteProfileRouteImport.update({
   id: '/route-complete-profile',
   path: '/route-complete-profile',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const IndexRoute = IndexImport.update({
+const CallbackRoute = CallbackRouteImport.update({
+  id: '/callback',
+  path: '/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-// Populate the FileRoutesByPath interface
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/route-complete-profile': {
-      id: '/route-complete-profile'
-      path: '/route-complete-profile'
-      fullPath: '/route-complete-profile'
-      preLoaderRoute: typeof RouteCompleteProfileImport
-      parentRoute: typeof rootRoute
-    }
-    '/route-login': {
-      id: '/route-login'
-      path: '/route-login'
-      fullPath: '/route-login'
-      preLoaderRoute: typeof RouteLoginImport
-      parentRoute: typeof rootRoute
-    }
-    '/route-painting': {
-      id: '/route-painting'
-      path: '/route-painting'
-      fullPath: '/route-painting'
-      preLoaderRoute: typeof RoutePaintingImport
-      parentRoute: typeof rootRoute
-    }
-    '/route-painting-create': {
-      id: '/route-painting-create'
-      path: '/route-painting-create'
-      fullPath: '/route-painting-create'
-      preLoaderRoute: typeof RoutePaintingCreateImport
-      parentRoute: typeof rootRoute
-    }
-    '/route-register': {
-      id: '/route-register'
-      path: '/route-register'
-      fullPath: '/route-register'
-      preLoaderRoute: typeof RouteRegisterImport
-      parentRoute: typeof rootRoute
-    }
-    '/route-restore-password-step1': {
-      id: '/route-restore-password-step1'
-      path: '/route-restore-password-step1'
-      fullPath: '/route-restore-password-step1'
-      preLoaderRoute: typeof RouteRestorePasswordStep1Import
-      parentRoute: typeof rootRoute
-    }
-    '/route-restore-password-step2': {
-      id: '/route-restore-password-step2'
-      path: '/route-restore-password-step2'
-      fullPath: '/route-restore-password-step2'
-      preLoaderRoute: typeof RouteRestorePasswordStep2Import
-      parentRoute: typeof rootRoute
-    }
-    '/user-page': {
-      id: '/user-page'
-      path: '/user-page'
-      fullPath: '/user-page'
-      preLoaderRoute: typeof UserPageImport
-      parentRoute: typeof rootRoute
-    }
-  }
-}
-
-// Create and export the route tree
+const RouteConversationConversationIdRoute =
+  RouteConversationConversationIdRouteImport.update({
+    id: '/route-conversation/$conversationId',
+    path: '/route-conversation/$conversationId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/callback': typeof CallbackRoute
   '/route-complete-profile': typeof RouteCompleteProfileRoute
+  '/route-conversation-new': typeof RouteConversationNewRoute
+  '/route-conversations': typeof RouteConversationsRoute
   '/route-login': typeof RouteLoginRoute
+  '/route-main-paintings': typeof RouteMainPaintingsRoute
   '/route-painting': typeof RoutePaintingRoute
   '/route-painting-create': typeof RoutePaintingCreateRoute
   '/route-register': typeof RouteRegisterRoute
   '/route-restore-password-step1': typeof RouteRestorePasswordStep1Route
   '/route-restore-password-step2': typeof RouteRestorePasswordStep2Route
+  '/route-reviews': typeof RouteReviewsRoute
   '/user-page': typeof UserPageRoute
+  '/user-page-paint-author': typeof UserPagePaintAuthorRoute
+  '/route-conversation/$conversationId': typeof RouteConversationConversationIdRoute
 }
-
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/callback': typeof CallbackRoute
   '/route-complete-profile': typeof RouteCompleteProfileRoute
+  '/route-conversation-new': typeof RouteConversationNewRoute
+  '/route-conversations': typeof RouteConversationsRoute
   '/route-login': typeof RouteLoginRoute
+  '/route-main-paintings': typeof RouteMainPaintingsRoute
   '/route-painting': typeof RoutePaintingRoute
   '/route-painting-create': typeof RoutePaintingCreateRoute
   '/route-register': typeof RouteRegisterRoute
   '/route-restore-password-step1': typeof RouteRestorePasswordStep1Route
   '/route-restore-password-step2': typeof RouteRestorePasswordStep2Route
+  '/route-reviews': typeof RouteReviewsRoute
   '/user-page': typeof UserPageRoute
+  '/user-page-paint-author': typeof UserPagePaintAuthorRoute
+  '/route-conversation/$conversationId': typeof RouteConversationConversationIdRoute
 }
-
 export interface FileRoutesById {
-  __root__: typeof rootRoute
+  __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/callback': typeof CallbackRoute
   '/route-complete-profile': typeof RouteCompleteProfileRoute
+  '/route-conversation-new': typeof RouteConversationNewRoute
+  '/route-conversations': typeof RouteConversationsRoute
   '/route-login': typeof RouteLoginRoute
+  '/route-main-paintings': typeof RouteMainPaintingsRoute
   '/route-painting': typeof RoutePaintingRoute
   '/route-painting-create': typeof RoutePaintingCreateRoute
   '/route-register': typeof RouteRegisterRoute
   '/route-restore-password-step1': typeof RouteRestorePasswordStep1Route
   '/route-restore-password-step2': typeof RouteRestorePasswordStep2Route
+  '/route-reviews': typeof RouteReviewsRoute
   '/user-page': typeof UserPageRoute
+  '/user-page-paint-author': typeof UserPagePaintAuthorRoute
+  '/route-conversation/$conversationId': typeof RouteConversationConversationIdRoute
 }
-
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/callback'
     | '/route-complete-profile'
+    | '/route-conversation-new'
+    | '/route-conversations'
     | '/route-login'
+    | '/route-main-paintings'
     | '/route-painting'
     | '/route-painting-create'
     | '/route-register'
     | '/route-restore-password-step1'
     | '/route-restore-password-step2'
+    | '/route-reviews'
     | '/user-page'
+    | '/user-page-paint-author'
+    | '/route-conversation/$conversationId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/callback'
     | '/route-complete-profile'
+    | '/route-conversation-new'
+    | '/route-conversations'
     | '/route-login'
+    | '/route-main-paintings'
     | '/route-painting'
     | '/route-painting-create'
     | '/route-register'
     | '/route-restore-password-step1'
     | '/route-restore-password-step2'
+    | '/route-reviews'
     | '/user-page'
+    | '/user-page-paint-author'
+    | '/route-conversation/$conversationId'
   id:
     | '__root__'
     | '/'
+    | '/callback'
     | '/route-complete-profile'
+    | '/route-conversation-new'
+    | '/route-conversations'
     | '/route-login'
+    | '/route-main-paintings'
     | '/route-painting'
     | '/route-painting-create'
     | '/route-register'
     | '/route-restore-password-step1'
     | '/route-restore-password-step2'
+    | '/route-reviews'
     | '/user-page'
+    | '/user-page-paint-author'
+    | '/route-conversation/$conversationId'
   fileRoutesById: FileRoutesById
 }
-
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CallbackRoute: typeof CallbackRoute
   RouteCompleteProfileRoute: typeof RouteCompleteProfileRoute
+  RouteConversationNewRoute: typeof RouteConversationNewRoute
+  RouteConversationsRoute: typeof RouteConversationsRoute
   RouteLoginRoute: typeof RouteLoginRoute
+  RouteMainPaintingsRoute: typeof RouteMainPaintingsRoute
   RoutePaintingRoute: typeof RoutePaintingRoute
   RoutePaintingCreateRoute: typeof RoutePaintingCreateRoute
   RouteRegisterRoute: typeof RouteRegisterRoute
   RouteRestorePasswordStep1Route: typeof RouteRestorePasswordStep1Route
   RouteRestorePasswordStep2Route: typeof RouteRestorePasswordStep2Route
+  RouteReviewsRoute: typeof RouteReviewsRoute
   UserPageRoute: typeof UserPageRoute
+  UserPagePaintAuthorRoute: typeof UserPagePaintAuthorRoute
+  RouteConversationConversationIdRoute: typeof RouteConversationConversationIdRoute
+}
+
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/user-page-paint-author': {
+      id: '/user-page-paint-author'
+      path: '/user-page-paint-author'
+      fullPath: '/user-page-paint-author'
+      preLoaderRoute: typeof UserPagePaintAuthorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user-page': {
+      id: '/user-page'
+      path: '/user-page'
+      fullPath: '/user-page'
+      preLoaderRoute: typeof UserPageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/route-reviews': {
+      id: '/route-reviews'
+      path: '/route-reviews'
+      fullPath: '/route-reviews'
+      preLoaderRoute: typeof RouteReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/route-restore-password-step2': {
+      id: '/route-restore-password-step2'
+      path: '/route-restore-password-step2'
+      fullPath: '/route-restore-password-step2'
+      preLoaderRoute: typeof RouteRestorePasswordStep2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/route-restore-password-step1': {
+      id: '/route-restore-password-step1'
+      path: '/route-restore-password-step1'
+      fullPath: '/route-restore-password-step1'
+      preLoaderRoute: typeof RouteRestorePasswordStep1RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/route-register': {
+      id: '/route-register'
+      path: '/route-register'
+      fullPath: '/route-register'
+      preLoaderRoute: typeof RouteRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/route-painting-create': {
+      id: '/route-painting-create'
+      path: '/route-painting-create'
+      fullPath: '/route-painting-create'
+      preLoaderRoute: typeof RoutePaintingCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/route-painting': {
+      id: '/route-painting'
+      path: '/route-painting'
+      fullPath: '/route-painting'
+      preLoaderRoute: typeof RoutePaintingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/route-main-paintings': {
+      id: '/route-main-paintings'
+      path: '/route-main-paintings'
+      fullPath: '/route-main-paintings'
+      preLoaderRoute: typeof RouteMainPaintingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/route-login': {
+      id: '/route-login'
+      path: '/route-login'
+      fullPath: '/route-login'
+      preLoaderRoute: typeof RouteLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/route-conversations': {
+      id: '/route-conversations'
+      path: '/route-conversations'
+      fullPath: '/route-conversations'
+      preLoaderRoute: typeof RouteConversationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/route-conversation-new': {
+      id: '/route-conversation-new'
+      path: '/route-conversation-new'
+      fullPath: '/route-conversation-new'
+      preLoaderRoute: typeof RouteConversationNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/route-complete-profile': {
+      id: '/route-complete-profile'
+      path: '/route-complete-profile'
+      fullPath: '/route-complete-profile'
+      preLoaderRoute: typeof RouteCompleteProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/callback': {
+      id: '/callback'
+      path: '/callback'
+      fullPath: '/callback'
+      preLoaderRoute: typeof CallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/route-conversation/$conversationId': {
+      id: '/route-conversation/$conversationId'
+      path: '/route-conversation/$conversationId'
+      fullPath: '/route-conversation/$conversationId'
+      preLoaderRoute: typeof RouteConversationConversationIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CallbackRoute: CallbackRoute,
   RouteCompleteProfileRoute: RouteCompleteProfileRoute,
+  RouteConversationNewRoute: RouteConversationNewRoute,
+  RouteConversationsRoute: RouteConversationsRoute,
   RouteLoginRoute: RouteLoginRoute,
+  RouteMainPaintingsRoute: RouteMainPaintingsRoute,
   RoutePaintingRoute: RoutePaintingRoute,
   RoutePaintingCreateRoute: RoutePaintingCreateRoute,
   RouteRegisterRoute: RouteRegisterRoute,
   RouteRestorePasswordStep1Route: RouteRestorePasswordStep1Route,
   RouteRestorePasswordStep2Route: RouteRestorePasswordStep2Route,
+  RouteReviewsRoute: RouteReviewsRoute,
   UserPageRoute: UserPageRoute,
+  UserPagePaintAuthorRoute: UserPagePaintAuthorRoute,
+  RouteConversationConversationIdRoute: RouteConversationConversationIdRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/",
-        "/route-complete-profile",
-        "/route-login",
-        "/route-painting",
-        "/route-painting-create",
-        "/route-register",
-        "/route-restore-password-step1",
-        "/route-restore-password-step2",
-        "/user-page"
-      ]
-    },
-    "/": {
-      "filePath": "index.tsx"
-    },
-    "/route-complete-profile": {
-      "filePath": "route-complete-profile.tsx"
-    },
-    "/route-login": {
-      "filePath": "route-login.tsx"
-    },
-    "/route-painting": {
-      "filePath": "route-painting.tsx"
-    },
-    "/route-painting-create": {
-      "filePath": "route-painting-create.tsx"
-    },
-    "/route-register": {
-      "filePath": "route-register.tsx"
-    },
-    "/route-restore-password-step1": {
-      "filePath": "route-restore-password-step1.tsx"
-    },
-    "/route-restore-password-step2": {
-      "filePath": "route-restore-password-step2.tsx"
-    },
-    "/user-page": {
-      "filePath": "user-page.tsx"
-    }
-  }
-}
-ROUTE_MANIFEST_END */

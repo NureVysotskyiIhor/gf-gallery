@@ -11,4 +11,8 @@ export interface ExtendedPainting {
   created_by: string | null 
   created_at: string        
   updated_at: string | null 
+    // Добавляем поле, которое подтягивается через join
+  users?: {
+    username: string
+  } | null
 }

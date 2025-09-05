@@ -1,3 +1,4 @@
+//src/lib/types/userTypes.ts
 export interface ExtendedUser {
   id: string;
   email: string;

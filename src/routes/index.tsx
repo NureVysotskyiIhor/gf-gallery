@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CompPaintingGrid  } from "@/components/compPaintingGrid";
+import HomePage from "@/pages/HomePage";
 export const Route = createFileRoute("/")({
   component: Index,
 });
@@ -7,7 +7,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <>
-      <CompPaintingGrid/>
+      <HomePage/>
     </>
   );
 }

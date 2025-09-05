@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { usePaintingListStore } from "@/store/paintingListStore"
 import { CompPaintingCardMainPage } from "./compPaintingCardMainPage"
 
-export function CompPaintingGrid() {
+export function asdasdasCompPaintingGrid() {
   const {
     publicPaintings,
     loadingPublic,

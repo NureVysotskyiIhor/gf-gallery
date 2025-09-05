@@ -38,15 +38,16 @@ export const usePaintingDetailStore = create<PaintingDetailState>((set, get) => 
     }
   },
 
+  // paintingDetailStore.ts
   fetchFavorite: async (userId, paintingId) => {
-    const { data, error } = await supabase
+    const { count, error } = await supabase
       .from('favorites')
-      .select('*', { count: 'exact' })
+      .select('*', { head: true, count: 'exact' })
       .eq('user_id', userId)
-      .eq('painting_id', paintingId)
-      .single()
-    if (!error || error.code === 'PGRST116') {
-      set({ isFavorite: !!data })
+      .eq('painting_id', paintingId);
+
+    if (!error) {
+      set({ isFavorite: (count ?? 0) > 0 });
     }
   },
 

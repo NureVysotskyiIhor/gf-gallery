@@ -9,7 +9,7 @@ function RouteComponent() {
   if (user) {
     return <PageUser/>;
   } else {
-    navigate({ to: "/" });
+    navigate({ to: "/route-register" });
   }
 }
 
